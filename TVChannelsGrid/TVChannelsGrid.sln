@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TVChannelsGrid", "TVChannelsGrid.csproj", "{B7B835D0-E55B-422B-99E6-0D9DDFFC974B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7B835D0-E55B-422B-99E6-0D9DDFFC974B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7B835D0-E55B-422B-99E6-0D9DDFFC974B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7B835D0-E55B-422B-99E6-0D9DDFFC974B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7B835D0-E55B-422B-99E6-0D9DDFFC974B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {420EA3ED-014B-4362-B163-9D7BAEED72C4}
+	EndGlobalSection
+EndGlobal
