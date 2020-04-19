@@ -1,0 +1,16 @@
+header {
+    height: 60px;
+    margin: -8px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    img {
+        margin: 0 16px;
+    }
+}
