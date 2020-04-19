@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/TV-Channels-Grid/v16
+/.vs/slnx.sqlite
+/.vs
+/TVChannelsGrid.WebApp/wwwroot
+/TVChannelsGrid.WebApp/obj
+/TVChannelsGrid.WebApp/bin/Debug/netcoreapp2.1
+/TVChannelsGrid.WebApp/TVChannelsGrid.WebApp.csproj.user
+/TVChannelsGrid.Database/obj
+/TVChannelsGrid.ServerApp/obj
