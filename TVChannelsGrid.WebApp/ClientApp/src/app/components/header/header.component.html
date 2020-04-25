@@ -1,0 +1,34 @@
+<header class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    <a class="navbar-brand">{{ strings.title }}</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" [ngClass]="{'active': menuSelected == 1}" (click)="changeMenuSelected(1)">
+                <a class="nav-link"> {{ strings.menu1 }} </a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': menuSelected == 2}" (click)="changeMenuSelected(2)">
+                <a class="nav-link"> {{ strings.menu2 }} </a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': menuSelected == 3}" (click)="changeMenuSelected(3)">
+                <a class="nav-link"> {{ strings.menu3 }} </a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': menuSelected == 4}" (click)="changeMenuSelected(4)">
+                <a class="nav-link"> {{ strings.menu4 }} </a>
+            </li>
+        </ul>
+        <div class="language-dropdown">
+            <mat-label>Language / Idioma</mat-label>
+            <mat-select (selectionChange)="languageChange($event)" value="es">
+              <mat-option value="en">English</mat-option>
+              <mat-option value="es">Español</mat-option>
+            </mat-select>
+        </div>
+        <form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" [placeholder]="strings.searchPlaceholder" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ strings.searchButton }}</button>
+        </form>
+    </div>
+</header>

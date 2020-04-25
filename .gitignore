@@ -11,3 +11,4 @@
 /TVChannelsGrid.WebApp/TVChannelsGrid.WebApp.csproj.user
 /TVChannelsGrid.Database/obj
 /TVChannelsGrid.ServerApp/obj
+*.user

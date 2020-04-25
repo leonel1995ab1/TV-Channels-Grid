@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TVChannelsGrid.Database\TVChannelsGrid.Database.csproj" />
+    <ProjectReference Include="..\TVChannelsGrid.ServerApp\TVChannelsGrid.ServerApp.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
