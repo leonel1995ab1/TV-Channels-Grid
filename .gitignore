@@ -12,3 +12,5 @@
 /TVChannelsGrid.Database/obj
 /TVChannelsGrid.ServerApp/obj
 *.user
+/TVChannelsGrid.ServerApp/bin
+/TVChannelsGrid.Database/bin
