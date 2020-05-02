@@ -82,11 +82,15 @@ namespace TVChannelsGrid.Database.Models
 
                 entity.Property(e => e.Description).HasColumnName("description");
 
-                entity.Property(e => e.Logo)
-                    .HasColumnName("logo")
-                    .HasColumnType("image");
+                entity.Property(e => e.Logo).HasColumnName("logo");
 
-                entity.Property(e => e.LogoUrl).HasColumnName("logoUrl");
+                entity.Property(e => e.EnglishUrl)
+                    .HasColumnName("englishUrl")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.SpanishUrl)
+                    .HasColumnName("spanishUrl")
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Name)
                     .IsRequired()

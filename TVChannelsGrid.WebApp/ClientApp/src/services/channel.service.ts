@@ -10,6 +10,10 @@ export class ChannelService {
   constructor(private http: HttpClient) { }
 
   getChannels(): Observable<any> {
-    return this.http.get("api/channel/getChannels");
+    return this.http.get('api/channel/getChannels');
+  }
+
+  getChannelById(id: number): Observable<any> {
+    return this.http.get('api/channel/getChannelById?id=' + id);
   }
 }

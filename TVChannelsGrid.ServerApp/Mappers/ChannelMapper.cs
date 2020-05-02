@@ -16,11 +16,26 @@ namespace TVChannelsGrid.ServerApp.Mappers
                 Id = channel.Id,
                 Name = channel.Name,
                 Code = channel.Code,
+                Resolution = channel.Resolution,
+                CategoryId = 1,
+                CategoryName = ""
+            };
+        }
+
+        public static ChannelData MapToChannelDetailsData(this Channels channel)
+        {
+            return new ChannelData()
+            {
+                Id = channel.Id,
+                Name = channel.Name,
+                Code = channel.Code,
                 Description = channel.Description,
                 Resolution = channel.Resolution,
                 CategoryId = 1,
                 CategoryName = "",
-                Logo = channel.LogoUrl
+                Logo = channel.Logo,
+                EnglishUrl = channel.EnglishUrl,
+                SpanishUrl = channel.SpanishUrl
             };
         }
     }

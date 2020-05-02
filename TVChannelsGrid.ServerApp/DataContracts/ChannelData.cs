@@ -29,5 +29,11 @@ namespace TVChannelsGrid.ServerApp.DataContracts
         [DataMember(Name = "base64Logo")]
         public string Logo { get; set; }
 
+        [DataMember(Name = "englishUrl")]
+        public string EnglishUrl { get; set; }
+
+        [DataMember(Name = "spanishUrl")]
+        public string SpanishUrl { get; set; }
+
     }
 }

@@ -15,7 +15,7 @@ export class ComingSoonComponent {
     private language: LanguageService,
     private dialogRef: MatDialogRef<ComingSoonComponent>
   ) { 
-    let lang = this.language.getLanguage();
+    let lang = this.language.selectedLanguage;
     if(lang == 'en') {
       this.title = "Coming Soon...";
       this.content = "This feature is in development. It will be ready soon."

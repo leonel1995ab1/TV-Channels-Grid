@@ -9,6 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 //Aplication components
 import { AppComponent } from './app.component';
@@ -16,6 +20,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ChannelListComponent } from './pages/channel-list/channel-list.component';
 import { ChannelDetailsComponent } from './pages/channel-details/channel-details.component';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
+import { DecimalPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,11 @@ import { ComingSoonComponent } from './components/coming-soon/coming-soon.compon
     //Angular Material modules
     MatSelectModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule,
+    MatInputModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],

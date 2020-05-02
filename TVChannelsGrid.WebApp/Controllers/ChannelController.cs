@@ -19,5 +19,11 @@ namespace TVChannelsGrid.WebApp.Controllers
         {
             return Service.GetChannels();
         }
+
+        [HttpGet("[action]")]
+        public ChannelData GetChannelById(int id)
+        {
+            return Service.GetChannelById(id);
+        }
     }
 }

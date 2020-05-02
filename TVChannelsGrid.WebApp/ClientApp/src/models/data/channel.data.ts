@@ -7,4 +7,6 @@ export interface ChannelData {
     categoryId: string;
     categoryName: string;
     base64Logo: string;
+    englishUrl: string;
+    spanishUrl: string;
 }

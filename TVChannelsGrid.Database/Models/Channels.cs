@@ -11,7 +11,8 @@ namespace TVChannelsGrid.Database.Models
         public string Description { get; set; }
         public string Resolution { get; set; }
         public int? Category { get; set; }
-        public byte[] Logo { get; set; }
-        public string LogoUrl { get; set; }
+        public string Logo { get; set; }
+        public string EnglishUrl { get; set; }
+        public string SpanishUrl { get; set; }
     }
 }

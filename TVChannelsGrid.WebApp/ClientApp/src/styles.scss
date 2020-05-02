@@ -33,6 +33,7 @@ $tv-channels-grid-theme: mat-light-theme($tv-channels-grid-primary, $tv-channels
 /* You can add global styles to this file, and also import other style files */
 html, body {
     height: 100%;
+    background: #fafafa;
 }
 
 :host {

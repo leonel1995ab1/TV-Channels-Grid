@@ -17,5 +17,11 @@ namespace TVChannelsGrid.ServerApp.Services
             var dbChannels = db.Channels;
             return dbChannels.Select(c => c.MapToChannelData()).ToList();
         }
+
+        public ChannelData GetChannelById (int id)
+        {
+            var channel = db.Channels.First(c => c.Id == id);
+            return channel.MapToChannelDetailsData();
+        }
     }
 }
