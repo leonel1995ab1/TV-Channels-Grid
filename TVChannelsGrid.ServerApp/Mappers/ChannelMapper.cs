@@ -9,20 +9,24 @@ namespace TVChannelsGrid.ServerApp.Mappers
 {
     public static class ChannelMapper
     {
-        public static ChannelData MapToChannelData(this Channels channel)
+        public static ChannelData MapToChannelData(this Channels channel, Category category)
         {
             return new ChannelData()
             {
                 Id = channel.Id,
                 Name = channel.Name,
                 Code = channel.Code,
-                Resolution = channel.Resolution,
-                CategoryId = 1,
-                CategoryName = ""
+                CategoryId = channel.Category,
+                EnglishCategoryDesc = category.EnglishName,
+                SpanishCategoryDesc = category.SpanishName,
+                IsSD = channel.IsSD,
+                IsHD = channel.IsHD,
+                Is4K = channel.Is4K,
+                Is3D = channel.Is3D
             };
         }
 
-        public static ChannelData MapToChannelDetailsData(this Channels channel)
+        public static ChannelData MapToChannelDetailsData(this Channels channel, Category category)
         {
             return new ChannelData()
             {
@@ -30,12 +34,16 @@ namespace TVChannelsGrid.ServerApp.Mappers
                 Name = channel.Name,
                 Code = channel.Code,
                 Description = channel.Description,
-                Resolution = channel.Resolution,
-                CategoryId = 1,
-                CategoryName = "",
+                CategoryId = channel.Category,
+                EnglishCategoryDesc = category.EnglishName,
+                SpanishCategoryDesc = category.SpanishName,
                 Logo = channel.Logo,
                 EnglishUrl = channel.EnglishUrl,
-                SpanishUrl = channel.SpanishUrl
+                SpanishUrl = channel.SpanishUrl,
+                IsSD = channel.IsSD,
+                IsHD = channel.IsHD,
+                Is4K = channel.Is4K,
+                Is3D = channel.Is3D
             };
         }
     }

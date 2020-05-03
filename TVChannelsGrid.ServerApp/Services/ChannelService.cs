@@ -14,14 +14,29 @@ namespace TVChannelsGrid.ServerApp.Services
 
         public List<ChannelData> GetChannels()
         {
-            var dbChannels = db.Channels;
-            return dbChannels.Select(c => c.MapToChannelData()).ToList();
+            var dbChannels = db.Channels
+                .Join(
+                    db.Category,
+                    channel => channel.Category,
+                    category => category.Id,
+                    (channel, category) => new { channel, category }
+                );
+
+           return dbChannels.Select(c => c.channel.MapToChannelData(c.category)).ToList();
         }
 
         public ChannelData GetChannelById (int id)
         {
-            var channel = db.Channels.First(c => c.Id == id);
-            return channel.MapToChannelDetailsData();
+            var ch = db.Channels
+                .Join(
+                    db.Category,
+                    channel => channel.Category,
+                    category => category.Id,
+                    (channel, category) => new { channel, category }
+                )
+                .First(c => c.channel.Id == id);
+
+            return ch.channel.MapToChannelDetailsData(ch.category);
         }
     }
 }

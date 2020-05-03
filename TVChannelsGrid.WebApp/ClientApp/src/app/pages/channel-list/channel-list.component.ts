@@ -40,7 +40,7 @@ export class ChannelListComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private language: LanguageService
   ) {
-    this.channelTableColumns = ['name', 'code', 'resolution', 'categoryName'];
+    this.channelTableColumns = ['code', 'name', 'resolution', 'categoryName'];
 
     //Set spanish nby default
     this.lang = 'es';

@@ -4,9 +4,14 @@ export interface ChannelData {
     code: string;
     description: string;
     resolution: string;
-    categoryId: string;
-    categoryName: string;
+    categoryId: number;
+    englishCategoryDesc: string;
+    spanishCategoryDesc: string;
     base64Logo: string;
     englishUrl: string;
     spanishUrl: string;
+    isSD: boolean;
+    isHD: boolean;
+    is4K: boolean;
+    is3D: boolean;
 }

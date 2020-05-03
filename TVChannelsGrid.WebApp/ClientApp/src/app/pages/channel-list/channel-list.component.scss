@@ -47,4 +47,33 @@
             margin-left: 15px;
         }
       }
+
+      .resolution-cell {
+        border: 1px solid gray;
+        border-radius: 6px;
+        font-size: 14px;
+        padding: 5px;
+        background-color: gray;
+        color: white;
+        width: 32px;
+        text-align: center;
+        margin-right: 5px;
+        float: left;
+      }
+
+      .name-column {
+        width: 50%;
+      }
+
+      .code-column {
+        width: 10%;
+      }
+
+      .resolution-column {
+        width: 25%;
+      }
+
+      .category-column {
+        width: 15%;
+      }
 }

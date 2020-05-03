@@ -13,7 +13,7 @@ export const EN_CH_LIST: IChannelList = {
     pagTotal: 'channels - Page',
     tableHeader1: 'Channel Name',
     tableHeader2: 'Code',
-    tableHeader3: 'Resolution',
+    tableHeader3: 'Resolutions',
     tableHeader4: 'Category',
     seeMore: 'See More'
 }

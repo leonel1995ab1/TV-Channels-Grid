@@ -13,7 +13,7 @@ export const SP_CH_LIST: IChannelList = {
     pagTotal: 'canales - Pagina',
     tableHeader1: 'Nombre del Canal',
     tableHeader2: 'Codigo',
-    tableHeader3: 'Resolución',
+    tableHeader3: 'Resoluciones',
     tableHeader4: 'Categoría',
     seeMore: 'Mas Info'
 }

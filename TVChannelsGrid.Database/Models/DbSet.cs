@@ -97,10 +97,13 @@ namespace TVChannelsGrid.Database.Models
                     .HasColumnName("name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Resolution)
-                    .IsRequired()
-                    .HasColumnName("resolution")
-                    .HasMaxLength(2);
+                entity.Property(e => e.IsSD).HasColumnName("isSd");
+
+                entity.Property(e => e.IsHD).HasColumnName("isHd");
+
+                entity.Property(e => e.Is4K).HasColumnName("is4k");
+
+                entity.Property(e => e.Is3D).HasColumnName("is3d");
             });
 
             modelBuilder.Entity<Grids>(entity =>
