@@ -1,0 +1,15 @@
+<div id="imageUpload">
+    <label class="uploader" ondragover="return false;" [class.loaded]="loaded"
+    [style.outlineColor]="dragging ? activeColor : baseColor" (dragenter)="handleDragEnter()"
+    (dragleave)="handleDragLeave()" (drop)="handleDrop($event)">
+
+    <i class="icon icon-upload" [style.color]="dragging 
+            ? ((imageSrc.length > 0) ? overlayColor : activeColor)
+            : ((imageSrc.length > 0) ? overlayColor : baseColor)"></i>
+
+    <img [src]="imageSrc" (load)="handleImageLoad()" [class.loaded]="imageLoaded" />
+    </label>
+    <button mat-raised-button (click)="upload()">{{ strings.button }}</button>
+</div>
+
+<input id="uploadedInput" type="file" name="file" accept="image/x-png" (change)="handleInputChange($event)">

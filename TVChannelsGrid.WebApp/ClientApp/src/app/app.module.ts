@@ -20,7 +20,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { ChannelListComponent } from './pages/channel-list/channel-list.component';
 import { ChannelDetailsComponent } from './pages/channel-details/channel-details.component';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
-import { DecimalPipe } from '@angular/common';
+import { ImageUploadComponent } from './components/image-upload/image-upload.component';
+import { PopupComponent } from './components/popup/popup.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { DecimalPipe } from '@angular/common';
     HeaderComponent,
     ChannelListComponent,
     ChannelDetailsComponent,
-    ComingSoonComponent
+    ComingSoonComponent,
+    ImageUploadComponent,
+    PopupComponent
   ],
   imports: [
     //Angular modules
