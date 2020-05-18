@@ -15,5 +15,6 @@ export const EN_CH_LIST: IChannelList = {
     tableHeader2: 'Code',
     tableHeader3: 'Resolutions',
     tableHeader4: 'Category',
-    seeMore: 'See More'
+    seeMore: 'See More',
+    addChannel: 'Add Channel'
 }

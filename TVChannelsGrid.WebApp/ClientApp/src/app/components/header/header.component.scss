@@ -24,4 +24,8 @@ header {
     .active {
         border-bottom: 1px solid $active-link-color;
     }
+
+    .navbar-brand {
+        cursor: default;
+    }
 }

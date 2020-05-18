@@ -6,6 +6,7 @@ import { EN_HEADER } from 'src/assets/strings/english/header';
 import { SP_HEADER } from 'src/assets/strings/spanish/header';
 import { MatDialog } from '@angular/material/dialog';
 import { ComingSoonComponent } from '../coming-soon/coming-soon.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,8 @@ export class HeaderComponent {
 
   constructor(
     private language: LanguageService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router
   ) { 
     this.strings = SP_HEADER;
     this.menuSelected = 1;
@@ -31,11 +33,14 @@ export class HeaderComponent {
   }
 
   changeMenuSelected(menu: number) {
-    if(menu == 1) {
-    this.menuSelected = menu;
-    } else {
-      this.dialog.open(ComingSoonComponent);
+    //this.menuSelected = menu;
+    switch(menu) {
+      case 1:
+        this.router.navigate(['/channels']);
+        break;
+      default:
+        this.dialog.open(ComingSoonComponent);
+        break;
     }
   }
-
 }

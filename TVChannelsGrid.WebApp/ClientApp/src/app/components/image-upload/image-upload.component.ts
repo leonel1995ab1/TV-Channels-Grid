@@ -30,7 +30,7 @@ export class ImageUploadComponent {
     private language: LanguageService,
     private popup: PopupService
   ) {
-    //Set spanish nby default
+    //Set spanish by default
     this.lang = 'es';
     this.strings = SP_IMAGE_UPLOAD;
 

@@ -13,5 +13,6 @@ export interface IChannelList {
     tableHeader2: string,
     tableHeader3: string,
     tableHeader4: string,
-    seeMore: string
+    seeMore: string,
+    addChannel: string
 }

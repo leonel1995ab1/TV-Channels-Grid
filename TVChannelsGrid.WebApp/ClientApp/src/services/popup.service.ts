@@ -11,7 +11,7 @@ export class PopupService {
 
   constructor() { }
 
-  show(data: Popup) {debugger
+  show(data: Popup) {
     this._show.next(data);
   }
 }

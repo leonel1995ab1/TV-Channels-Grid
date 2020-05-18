@@ -1,8 +1,11 @@
 <div id="channelList">
-    <mat-form-field>
-        <mat-label>{{ strings.search }}</mat-label>
-        <input matInput (keyup)="applyFilter($event)" [placeholder]="strings.example">
-    </mat-form-field>
+    <div class="subheader">
+        <mat-form-field>
+            <mat-label>{{ strings.search }}</mat-label>
+            <input matInput (keyup)="applyFilter($event)" [placeholder]="strings.example">
+        </mat-form-field>
+        <button mat-raised-button class="mat-primary" [routerLink]="['/channel/new']">{{ strings.addChannel }}</button>
+    </div>
 
     <div class="table-container">
         <table mat-table matSort [dataSource]="channelList" multiTemplateDataRows>

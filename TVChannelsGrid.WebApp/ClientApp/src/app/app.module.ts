@@ -1,6 +1,6 @@
 //Angular modules
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +22,8 @@ import { ChannelDetailsComponent } from './pages/channel-details/channel-details
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { PopupComponent } from './components/popup/popup.component';
+import { CategoryService } from 'src/services/category.service';
+import { CategoryData } from 'src/models/data/category.data';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,16 @@ import { PopupComponent } from './components/popup/popup.component';
     MatPaginatorModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      deps: [CategoryService],
+      useFactory: (categoryService: CategoryService) => {
+        return () => categoryService.getCategories();
+      },
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

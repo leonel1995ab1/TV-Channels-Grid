@@ -15,5 +15,6 @@ export const SP_CH_LIST: IChannelList = {
     tableHeader2: 'Codigo',
     tableHeader3: 'Resoluciones',
     tableHeader4: 'Categoría',
-    seeMore: 'Mas Info'
+    seeMore: 'Mas Info',
+    addChannel: 'Añadir Canal'
 }
