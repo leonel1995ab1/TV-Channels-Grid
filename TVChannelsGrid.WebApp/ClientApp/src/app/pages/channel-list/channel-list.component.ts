@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ChannelService } from 'src/services/channel.service';
 import { ChannelData } from 'src/models/data/channel.data';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -11,6 +11,8 @@ import { LanguageService } from 'src/services/language.service';
 import { EN_CH_LIST } from 'src/assets/strings/english/channel-list';
 import { SP_CH_LIST } from 'src/assets/strings/spanish/channel-list';
 import { IChannelList } from 'src/assets/strings/interfaces/channel-list.interface';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-channel-list',
@@ -24,13 +26,14 @@ import { IChannelList } from 'src/assets/strings/interfaces/channel-list.interfa
     ]),
   ],
 })
-export class ChannelListComponent implements OnInit {
+export class ChannelListComponent implements OnInit, OnDestroy {
   strings: IChannelList;
   lang: string;
   channelList = new MatTableDataSource();
   channelTableColumns: string[];
   expandedChannel: ChannelData;
   expandedChannelDetails: ExpandedChannel = new ExpandedChannel();
+  unsubscribe = new Subject<any>();
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -41,15 +44,7 @@ export class ChannelListComponent implements OnInit {
     private language: LanguageService
   ) {
     this.channelTableColumns = ['code', 'name', 'resolution', 'categoryName'];
-
-    //Set spanish nby default
-    this.lang = 'es';
-    this.strings = SP_CH_LIST;
-
-    this.language.applyLanguage$.subscribe((newLang: string) => {
-      this.evaluateLanguage(newLang);
-      this.updatePaginatorLabels();
-    });
+    this.evaluateLanguage(this.language.selectedLanguage);
   }
 
   ngOnInit() {
@@ -60,9 +55,23 @@ export class ChannelListComponent implements OnInit {
     this.channelList.sort = this.sort;
     this.updatePaginatorLabels();
 
-    this.channelService.getChannels().subscribe((response: ChannelData[]) => {
+    this.channelService.getChannels()
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe((response: ChannelData[]) => {
       this.channelList.data = response;
     });
+
+    this.language.applyLanguage$
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe((newLang: string) => {
+      this.evaluateLanguage(newLang);
+      this.updatePaginatorLabels();
+    });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   private evaluateLanguage(lang: string) {

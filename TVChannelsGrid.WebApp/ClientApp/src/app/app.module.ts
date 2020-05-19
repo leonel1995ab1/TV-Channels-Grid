@@ -24,6 +24,7 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
 import { PopupComponent } from './components/popup/popup.component';
 import { CategoryService } from 'src/services/category.service';
 import { CategoryData } from 'src/models/data/category.data';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CategoryData } from 'src/models/data/category.data';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     //Angular Material modules
     MatSelectModule,
     MatDialogModule,

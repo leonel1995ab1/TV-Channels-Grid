@@ -1,60 +1,76 @@
 <div id="channelDetails" class="row">
-    <div class="col-md-3">
-        <app-image-upload></app-image-upload>
+    <div class="row col-md-12 title">
+        <h4 *ngIf="!channelId">{{ strings.add }}</h4>
+        <h4 *ngIf="channelId">{{ strings.edit + channel?.name }}</h4>
     </div>
-    <div class="col-md-9 code-name">
-        <!-- Code / Name -->
-        <div class="row">
-            <mat-form-field class="col-md-4">
-                <mat-label>Codigo</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <mat-form-field class="col-md-8">
-                <mat-label>Nombre del Canal</mat-label>
-                <input matInput>
-            </mat-form-field>
+    <div class="row col-md-12">
+        <div class="col-md-3">
+            <app-image-upload [(imageSrc)]="logo"></app-image-upload>
+            <div class="error" *ngIf="showLogoError && !logo.length">
+                <span class="material-icons icon-image-preview">error_outline</span>
+                <span>{{ strings.errorLogo }}</span>
+            </div>
         </div>
+        <form class="col-md-9 code-name" [formGroup]="channelForm">
+            <!-- Code / Name -->
+            <div class="row">
+                <mat-form-field class="col-md-4">
+                    <mat-label>{{ strings.code }}</mat-label>
+                    <input matInput formControlName="code" maxlength="6">
+                </mat-form-field>
+                <mat-form-field class="col-md-8">
+                    <mat-label>{{ strings.name }}</mat-label>
+                    <input matInput formControlName="name" maxlength="50">
+                </mat-form-field>
+            </div>
 
-        <!-- Description -->
-        <div class="row">
-            <mat-form-field class="col-md-12">
-                <mat-label>Descripcion</mat-label>
-                <textarea matInput></textarea>
-            </mat-form-field>
-        </div>
-        
-        <!-- Info URL -->
-        <div class="row">
-            <mat-form-field class="col-md-6">
-                <mat-label>URL de Informacion en Ingles</mat-label>
-                <input matInput>
-            </mat-form-field>
-            <mat-form-field class="col-md-6">
-                <mat-label>URL de Informacion en Español</mat-label>
-                <input matInput>
-            </mat-form-field>
-        </div>
+            <!-- Description -->
+            <div class="row">
+                <mat-form-field class="col-md-12">
+                    <mat-label>{{ strings.desc }}</mat-label>
+                    <textarea matInput formControlName="desc"></textarea>
+                </mat-form-field>
+            </div>
+            
+            <!-- Info URL -->
+            <div class="row">
+                <mat-form-field class="col-md-6">
+                    <mat-label>{{ strings.enUrl }}</mat-label>
+                    <input matInput formControlName="enUrl" maxlength="50">
+                </mat-form-field>
+                <mat-form-field class="col-md-6">
+                    <mat-label>{{ strings.esUrl }}</mat-label>
+                    <input matInput formControlName="esUrl" maxlength="50">
+                </mat-form-field>
+            </div>
 
-        <!-- Category / Resolution-->
-        <div class="row">
-            <mat-form-field class="col-md-6">
-                <mat-label>Categoria</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.spanishName }}</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <!-- Category / Resolution-->
+            <div class="row">
+                <mat-form-field class="col-md-6">
+                    <mat-label>{{ strings.category }}</mat-label>
+                    <mat-select formControlName="category">
+                        <mat-option *ngFor="let category of categories" [value]="category.id">
+                            {{ lang == 'en' ? category.englishName : category.spanishName }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
-            <mat-form-field class="col-md-6">
-                <mat-label>Resoluciones Compatibles</mat-label>
-                <mat-select multiple>
-                    <mat-option *ngFor="let resolution of resolutions" [value]="resolution.code">{{ resolution.desc }}</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+                <mat-form-field class="col-md-6">
+                    <mat-label>{{ strings.resolution }}</mat-label>
+                    <mat-select multiple formControlName="resolutions">
+                        <mat-option *ngFor="let resolution of resolutions" [value]="resolution.code">{{ resolution.desc }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-        <!--Save Button-->
-        <div class="row save-button">
-            <button mat-raised-button class="mat-primary">Guardar</button>
-        </div>
-    </div>     
+            <!--Save Button-->
+            <div class="row save-button">
+                <div class="error" *ngIf="showFieldError && !channelForm.valid">
+                    <span class="material-icons icon-image-preview">error_outline</span>
+                    <span>{{ strings.errorLogo }}</span>
+                </div>
+                <button mat-raised-button class="mat-primary" (click)="save()">{{ strings.save }}</button>
+            </div>
+        </form>
+    </div>
 </div>

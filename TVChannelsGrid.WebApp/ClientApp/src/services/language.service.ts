@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class LanguageService {
-  private applyLanguage = new Subject();
+  private applyLanguage:Subject<string> = new Subject();
   private _selectedLanguage: string;
   public applyLanguage$ = this.applyLanguage.asObservable()
 
@@ -19,5 +19,9 @@ export class LanguageService {
 
   get selectedLanguage(): string {
     return this._selectedLanguage;
+  }
+
+  public setStartLanguage(lang: string) {
+    this._selectedLanguage = lang;
   }
 }

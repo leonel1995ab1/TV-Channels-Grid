@@ -23,7 +23,7 @@ export class HeaderComponent {
     public dialog: MatDialog,
     private router: Router
   ) { 
-    this.strings = SP_HEADER;
+    this.strings = this.language.selectedLanguage == 'en' ? EN_HEADER : SP_HEADER;
     this.menuSelected = 1;
   }
 

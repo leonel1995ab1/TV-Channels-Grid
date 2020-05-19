@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, DoCheck, EventEmitter, OnDestroy } from '@angular/core';
 import { IImageUpload } from 'src/assets/strings/interfaces/image-upload.interface';
 import { LanguageService } from 'src/services/language.service';
 import { SP_IMAGE_UPLOAD } from 'src/assets/strings/spanish/image-upload';
 import { EN_IMAGE_UPLOAD } from 'src/assets/strings/english/image-upload';
 import { PopupService } from 'src/services/popup.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-image-upload',
@@ -11,9 +13,10 @@ import { PopupService } from 'src/services/popup.service';
   styleUrls: ['./image-upload.component.scss']
 })
 
-export class ImageUploadComponent {
+export class ImageUploadComponent implements DoCheck, OnDestroy {
   strings: IImageUpload;
   lang: string;
+  unsubscribe = new Subject<any>();
 
   borderColor: string;
   iconColor: string;
@@ -24,19 +27,30 @@ export class ImageUploadComponent {
   dragging: boolean = false;
   loaded: boolean = false;
   imageLoaded: boolean = false;
-  imageSrc: string = '';
+  
+  @Input() imageSrc: string;
+  @Output() imageSrcChange = new EventEmitter();
 
   constructor(
     private language: LanguageService,
     private popup: PopupService
   ) {
-    //Set spanish by default
-    this.lang = 'es';
-    this.strings = SP_IMAGE_UPLOAD;
+    this.evaluateLanguage(this.language.selectedLanguage);
 
-    this.language.applyLanguage$.subscribe((newLang: string) => {
+    this.language.applyLanguage$
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe((newLang: string) => {
       this.evaluateLanguage(newLang);
     });
+  }
+
+  ngDoCheck() {
+    this.imageSrcChange.emit(this.imageSrc);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   private evaluateLanguage(lang: string) {

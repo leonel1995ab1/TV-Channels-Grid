@@ -3,10 +3,9 @@ export interface ChannelData {
     name: string;
     code: string;
     description: string;
-    resolution: string;
     categoryId: number;
-    englishCategoryDesc: string;
-    spanishCategoryDesc: string;
+    englishCategoryDesc?: string;
+    spanishCategoryDesc?: string;
     base64Logo: string;
     englishUrl: string;
     spanishUrl: string;
