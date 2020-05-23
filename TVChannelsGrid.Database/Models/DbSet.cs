@@ -69,28 +69,21 @@ namespace TVChannelsGrid.Database.Models
 
             modelBuilder.Entity<Channels>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasColumnName("id")
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.Category).HasColumnName("category");
-
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasColumnName("code")
-                    .HasMaxLength(6);
+                    .HasMaxLength(6)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Category).HasColumnName("category");
 
                 entity.Property(e => e.Description).HasColumnName("description");
 
                 entity.Property(e => e.Logo).HasColumnName("logo");
 
-                entity.Property(e => e.EnglishUrl)
-                    .HasColumnName("englishUrl")
-                    .HasMaxLength(50);
+                entity.Property(e => e.EnglishUrl).HasColumnName("englishUrl");
 
-                entity.Property(e => e.SpanishUrl)
-                    .HasColumnName("spanishUrl")
-                    .HasMaxLength(50);
+                entity.Property(e => e.SpanishUrl).HasColumnName("spanishUrl");
 
                 entity.Property(e => e.Name)
                     .IsRequired()

@@ -9,7 +9,6 @@ namespace TVChannelsGrid.ServerApp.Mappers
         {
             return new ChannelData()
             {
-                Id = channel.Id,
                 Name = channel.Name,
                 Code = channel.Code,
                 CategoryId = channel.Category,
@@ -26,7 +25,6 @@ namespace TVChannelsGrid.ServerApp.Mappers
         {
             return new ChannelData()
             {
-                Id = channel.Id,
                 Name = channel.Name,
                 Code = channel.Code,
                 Description = channel.Description,

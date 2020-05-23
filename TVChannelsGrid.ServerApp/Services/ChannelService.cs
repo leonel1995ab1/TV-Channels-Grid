@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace TVChannelsGrid.ServerApp.Services
     {
         private readonly DbSet db = new DbSet();
 
-        public List<ChannelData> GetChannels()
+        public List<ChannelData> GetAll()
         {
             var dbChannels = db.Channels
                 .Join(
@@ -25,7 +26,7 @@ namespace TVChannelsGrid.ServerApp.Services
            return dbChannels.Select(c => c.channel.MapToChannelData(c.category)).ToList();
         }
 
-        public ChannelData GetChannelById (int id)
+        public ChannelData GetByCode (string code)
         {
             var ch = db.Channels
                 .Join(
@@ -34,9 +35,25 @@ namespace TVChannelsGrid.ServerApp.Services
                     category => category.Id,
                     (channel, category) => new { channel, category }
                 )
-                .First(c => c.channel.Id == id);
+                .First(c => c.channel.Code == code);
 
             return ch.channel.MapToChannelDetailsData(ch.category);
+        }
+
+        public async Task<int> CreateAsync (ChannelData channel)
+        {
+            db.Channels.Add(channel.MapChannelToUpdate());
+            return await db.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdateAsync(ChannelData channel)
+        {
+
+            /*var channelToUpdate = db.Channels.Find(channel.Code);
+            db.Entry(channelToUpdate).CurrentValues.SetValues(channel.MapChannelToUpdate());*/
+            db.Channels.Update(channel.MapChannelToUpdate());
+
+            return await db.SaveChangesAsync();
         }
     }
 }

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ChannelData } from 'src/models/data/channel.data';
+
+const BASE_URL = 'api/channel/';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +12,19 @@ export class ChannelService {
 
   constructor(private http: HttpClient) { }
 
-  getChannels(): Observable<any> {
-    return this.http.get('api/channel/getChannels');
+  getAll(): Observable<ChannelData[]> {
+    return this.http.get<ChannelData[]>(`${BASE_URL}getAll`);
   }
 
-  getChannelById(id: number): Observable<any> {
-    return this.http.get('api/channel/getChannelById?id=' + id);
+  getByCode(code: string): Observable<ChannelData> {
+    return this.http.get<ChannelData>(`${BASE_URL}getByCode?code=` + code);
+  }
+
+  create(channel: ChannelData): Observable<number> {
+    return this.http.post<number>(`${BASE_URL}create`, channel);
+  }
+
+  update(channel: ChannelData): Observable<number> {
+    return this.http.post<number>(`${BASE_URL}update`, channel);
   }
 }

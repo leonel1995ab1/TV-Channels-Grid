@@ -6,12 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { ChannelService } from 'src/services/channel.service';
 import { ChannelData } from 'src/models/data/channel.data';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { LanguageService } from 'src/services/language.service';
 import { EN_CH_DETAILS } from 'src/assets/strings/english/channel-details';
 import { SP_CH_DETAILS } from 'src/assets/strings/spanish/channel-details';
 import { IChannelDetails } from 'src/assets/strings/interfaces/channel-details.interface';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-channel-details',
@@ -38,7 +39,7 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
       desc: '3D'
     }
   ];
-  channelId: number;
+  channelCode: string;
   channel: ChannelData;
   unsubscribe = new Subject<any>();
   strings: IChannelDetails;
@@ -52,18 +53,22 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private channelService: ChannelService,
-    private language: LanguageService
+    private language: LanguageService,
+    private snackBar: MatSnackBar
   ) { 
     this.categories = this.categoryService.categories;
-    this.channelId = +this.route.snapshot.paramMap.get('id');
+    let code = this.route.snapshot.paramMap.get('code');
+    if(code) {
+      this.channelCode = code.toUpperCase();
+    }
 
     this.evaluateLanguage(this.language.selectedLanguage);
     this.generateFormGroup();
   }
 
   ngOnInit(): void {
-    if(this.channelId) {
-      this.channelService.getChannelById(this.channelId)
+    if(this.channelCode) {
+      this.channelService.getByCode(this.channelCode)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(resp => this.setChannelValues(resp));
     }
@@ -120,6 +125,20 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
     if(this.showLogoError || this.showFieldError) return;
 
     let channelToSave: ChannelData = this.mapChannelToSave();
+
+    if(this.channelCode) {
+      this.channelService.update(channelToSave)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.showNotification('tst');
+      });
+    } else {
+      this.channelService.create(channelToSave)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.showNotification('tst');
+      });
+    }
   }
 
   private mapChannelToSave(): ChannelData {
@@ -144,8 +163,7 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
     });
 
     return {
-      id: this.channelId,
-      code: this.channelForm.controls.code.value,
+      code: this.channelForm.controls.code.value.toUpperCase(),
       name: this.channelForm.controls.name.value,
       description: this.channelForm.controls.desc.value,
       categoryId: this.channelForm.controls.category.value,
@@ -157,6 +175,14 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
       is3D: is3D,
       is4K: is4K
     }
+  }
+
+  private showNotification(text: string) {
+    this.snackBar.open(text, null, {
+      duration: 3000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+    });
   }
 
 }

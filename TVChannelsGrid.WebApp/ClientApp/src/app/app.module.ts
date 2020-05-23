@@ -4,6 +4,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 //Angular Material modules
 import { MatDialogModule } from '@angular/material/dialog';
@@ -13,6 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 //Aplication components
 import { AppComponent } from './app.component';
@@ -23,8 +25,6 @@ import { ComingSoonComponent } from './components/coming-soon/coming-soon.compon
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { CategoryService } from 'src/services/category.service';
-import { CategoryData } from 'src/models/data/category.data';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     //Angular Material modules
     MatSelectModule,
@@ -50,7 +51,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatInputModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

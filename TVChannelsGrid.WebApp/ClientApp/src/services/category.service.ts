@@ -11,7 +11,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getCategories() {
+  getCategories(): Promise<CategoryData[]> {
     return this.http.get<CategoryData[]>('api/category/getCategories')
     .pipe(tap(response => this.categoryList = response))
     .toPromise();

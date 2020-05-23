@@ -1,5 +1,4 @@
-﻿
-using TVChannelsGrid.Database.Models;
+﻿using TVChannelsGrid.Database.Models;
 using TVChannelsGrid.ServerApp.DataContracts;
 
 namespace TVChannelsGrid.ServerApp.Mappers

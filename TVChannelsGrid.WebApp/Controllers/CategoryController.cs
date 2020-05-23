@@ -16,9 +16,6 @@ namespace TVChannelsGrid.WebApp.Controllers
         private readonly CategoryService Service = new CategoryService();
 
         [HttpGet("[action]")]
-        public List<CategoryData> GetCategories()
-        {
-            return Service.GetCategories();
-        }
+        public List<CategoryData> GetCategories() => Service.GetCategories();
     }
 }

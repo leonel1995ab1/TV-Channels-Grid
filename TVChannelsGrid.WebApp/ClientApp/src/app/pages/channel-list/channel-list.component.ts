@@ -55,7 +55,7 @@ export class ChannelListComponent implements OnInit, OnDestroy {
     this.channelList.sort = this.sort;
     this.updatePaginatorLabels();
 
-    this.channelService.getChannels()
+    this.channelService.getAll()
     .pipe(takeUntil(this.unsubscribe))
     .subscribe((response: ChannelData[]) => {
       this.channelList.data = response;
@@ -106,7 +106,7 @@ export class ChannelListComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.channelService.getChannelById(channel.id).subscribe((response: ChannelData) => {
+    this.channelService.getByCode(channel.code).subscribe((response: ChannelData) => {
       this.expandedChannelDetails = {
         description: response.description,
         base64Logo: this._sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + response.base64Logo),
