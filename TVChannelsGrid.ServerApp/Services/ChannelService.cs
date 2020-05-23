@@ -47,12 +47,8 @@ namespace TVChannelsGrid.ServerApp.Services
         }
 
         public async Task<int> UpdateAsync(ChannelData channel)
-        {
-
-            /*var channelToUpdate = db.Channels.Find(channel.Code);
-            db.Entry(channelToUpdate).CurrentValues.SetValues(channel.MapChannelToUpdate());*/
+        { 
             db.Channels.Update(channel.MapChannelToUpdate());
-
             return await db.SaveChangesAsync();
         }
     }

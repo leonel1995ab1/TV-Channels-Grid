@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 //Angular Material modules
@@ -16,7 +16,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-//Aplication components
+//Aplication components nd services
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ChannelListComponent } from './pages/channel-list/channel-list.component';
@@ -25,6 +25,7 @@ import { ComingSoonComponent } from './components/coming-soon/coming-soon.compon
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { PopupComponent } from './components/popup/popup.component';
 import { CategoryService } from 'src/services/category.service';
+import { InterceptorService } from 'src/services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,11 @@ import { CategoryService } from 'src/services/category.service';
       useFactory: (categoryService: CategoryService) => {
         return () => categoryService.getCategories();
       },
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
       multi: true
     }
   ],
