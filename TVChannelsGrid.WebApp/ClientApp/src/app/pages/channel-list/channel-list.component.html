@@ -17,7 +17,7 @@
             <ng-container matColumnDef="checkbox">
                 <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
                 <td mat-cell class="checkbox-column" *matCellDef="let element">
-                    <mat-checkbox (change)="selectionChange(element, $event)" [checked]="element.checked">
+                    <mat-checkbox [(ngModel)]="element.checked" (change)="selectionChange(element, $event)">
                     </mat-checkbox>
                 </td>
             </ng-container>
@@ -26,7 +26,8 @@
             <ng-container matColumnDef="code">
                 <th class="code-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader2 }}
                 </th>
-                <td mat-cell class="clickeable" *matCellDef="let element" (click)="selectionChange(element, {checked: !element.checked}); element.checked = !element.checked">
+                <td mat-cell class="clickeable" *matCellDef="let element"
+                    (click)="selectionChange(element, {checked: !element.checked}); element.checked = !element.checked">
                     {{ element.code }} </td>
             </ng-container>
 
@@ -97,7 +98,7 @@
         </div>
     </div>
     <div mat-dialog-actions class="confirm-buttons">
-      <button mat-raised-button class="mat-warn" (click)="confirmRemove()">{{ strings.yes }}</button>
-      <button mat-button (click)="closePopup()">No</button>
+        <button mat-raised-button class="mat-warn" (click)="confirmRemove()">{{ strings.yes }}</button>
+        <button mat-button (click)="closePopup()">No</button>
     </div>
 </ng-template>

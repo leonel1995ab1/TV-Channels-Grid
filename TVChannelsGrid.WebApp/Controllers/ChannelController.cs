@@ -27,5 +27,8 @@ namespace TVChannelsGrid.WebApp.Controllers
 
         [HttpPost("[action]")]
         public Task<int> Update(ChannelData channel) => Service.Update(channel);
+
+        [HttpPost("[action]")]
+        public Task<int> Delete(IEnumerable<DeletedChannel> channels) => Service.Delete(channels);
     }
 }

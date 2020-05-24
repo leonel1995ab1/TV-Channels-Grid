@@ -52,5 +52,16 @@ namespace TVChannelsGrid.ServerApp.Services
             db.Channels.Update(channel.MapChannelToUpdate());
             return await db.SaveChangesAsync();
         }
+
+        public async Task<int> Delete(IEnumerable<DeletedChannel> channels)
+        {
+            var channelList = channels.ToList();
+            foreach(var c in channelList)
+            {
+                var ch = db.Channels.Find(c.Id);
+                db.Channels.Remove(ch);
+            }
+            return await db.SaveChangesAsync();
+        }
     }
 }
