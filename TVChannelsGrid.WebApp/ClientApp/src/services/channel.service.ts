@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ChannelData } from 'src/models/data/channel.data';
+import { ChannelSelected } from 'src/models/interfaces/channel-selected.interface';
 
 const BASE_URL = 'api/channel/';
 
@@ -16,8 +17,8 @@ export class ChannelService {
     return this.http.get<ChannelData[]>(`${BASE_URL}getAll`);
   }
 
-  getByCode(code: string): Observable<ChannelData> {
-    return this.http.get<ChannelData>(`${BASE_URL}getByCode?code=` + code);
+  getById(id: number): Observable<ChannelData> {
+    return this.http.get<ChannelData>(`${BASE_URL}getById?id=` + id);
   }
 
   create(channel: ChannelData): Observable<number> {
@@ -26,5 +27,9 @@ export class ChannelService {
 
   update(channel: ChannelData): Observable<number> {
     return this.http.post<number>(`${BASE_URL}update`, channel);
+  }
+
+  delete(channels: ChannelSelected[]): Observable<number> {
+    return this.http.post<number>(`${BASE_URL}delete`, channels);
   }
 }

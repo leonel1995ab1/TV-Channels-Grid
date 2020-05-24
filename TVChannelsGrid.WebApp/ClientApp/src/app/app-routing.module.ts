@@ -18,7 +18,7 @@ const routes: Routes = [
     component: ChannelDetailsComponent
   },
   {
-    path: 'channel/:code',
+    path: 'channel/:id',
     component: ChannelDetailsComponent
   }
 ];

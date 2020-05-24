@@ -28,6 +28,14 @@
     &:not(.channel-expanded-row):active {
         background: #efefef;
     }
+
+    .clickeable {
+      cursor: pointer;
+    }
+
+    .checkbox-column {
+      padding: 15px;
+    }
   }
   
   .channel-row td {
@@ -79,5 +87,16 @@
 
   .subheader button {
     float: right;
+    margin-left: 10px;
   }
+}
+
+.confirm-buttons {
+  float: right;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+.channel-to-remove {
+  max-height: 200px;
 }

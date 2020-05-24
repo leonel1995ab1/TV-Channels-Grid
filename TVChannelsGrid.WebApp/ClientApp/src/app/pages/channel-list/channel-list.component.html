@@ -4,27 +4,45 @@
             <mat-label>{{ strings.search }}</mat-label>
             <input matInput (keyup)="applyFilter($event)" [placeholder]="strings.example">
         </mat-form-field>
-        <button mat-raised-button class="mat-primary" [routerLink]="['/channel/new']">{{ strings.addChannel }}</button>
+        <button mat-raised-button class="mat-primary" [routerLink]="['/channel/new']">{{ strings.add }}</button>
+        <button mat-stroked-button class="mat-warn" *ngIf="selectedChannels.length"
+            (click)="remove()">{{ strings.remove }}</button>
+        <button mat-stroked-button class="mat-primary" *ngIf="selectedChannels.length == 1"
+            (click)="edit()">{{ strings.edit }}</button>
     </div>
 
     <div class="table-container">
         <table mat-table matSort [dataSource]="channelList" multiTemplateDataRows>
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="checkbox">
+                <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+                <td mat-cell class="checkbox-column" *matCellDef="let element">
+                    <mat-checkbox (change)="selectionChange(element, $event)" [checked]="element.checked">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+
             <!-- Channel Code Column -->
             <ng-container matColumnDef="code">
-                <th class="code-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader2 }} </th>
-                <td mat-cell *matCellDef="let element"> {{ element.code }} </td>
+                <th class="code-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader2 }}
+                </th>
+                <td mat-cell class="clickeable" *matCellDef="let element" (click)="selectionChange(element, {checked: !element.checked}); element.checked = !element.checked">
+                    {{ element.code }} </td>
             </ng-container>
 
             <!-- Channel Name Column -->
             <ng-container matColumnDef="name">
-                <th class="name-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader1 }} </th>
-                <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+                <th class="name-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader1 }}
+                </th>
+                <td mat-cell class="clickeable" *matCellDef="let element" (click)="showChannelDetails(element)">
+                    {{ element.name }} </td>
             </ng-container>
 
             <!-- Channel Resolution Column -->
             <ng-container matColumnDef="resolution">
-                <th class="resolution-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader3 }} </th>
-                <td mat-cell *matCellDef="let element"> 
+                <th class="resolution-column" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ strings.tableHeader3 }} </th>
+                <td mat-cell class="clickeable" *matCellDef="let element" (click)="showChannelDetails(element)">
                     <div *ngIf="element.isSD" class="resolution-cell"> SD </div>
                     <div *ngIf="element.isHD" class="resolution-cell"> HD </div>
                     <div *ngIf="element.is4K" class="resolution-cell"> 4K </div>
@@ -34,19 +52,23 @@
 
             <!-- Channel Category Column -->
             <ng-container matColumnDef="categoryName">
-                <th class="category-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader4 }} </th>
-                <td mat-cell *matCellDef="let element"> {{ lang == 'en' ? element.englishCategoryDesc : element.spanishCategoryDesc }} </td>
+                <th class="category-column" mat-header-cell *matHeaderCellDef mat-sort-header>
+                    {{ strings.tableHeader4 }} </th>
+                <td mat-cell class="clickeable" *matCellDef="let element" (click)="showChannelDetails(element)">
+                    {{ lang == 'en' ? element.englishCategoryDesc : element.spanishCategoryDesc }} </td>
             </ng-container>
 
-            <!-- Channel Logo and Descriptiopn (expanded) -->
+            <!-- Channel Logo and Description (expanded) -->
             <ng-container matColumnDef="expanded">
                 <td mat-cell *matCellDef="let element" [attr.colspan]="channelTableColumns.length">
                     <div class="channel-detail" [@detailExpand]="element == expandedChannel ? 'expanded' : 'collapsed'">
-                        <img [title]="element.name + ' Logo'" [alt]="element.name + ' Logo'" [src]="expandedChannelDetails.base64Logo">
+                        <img [title]="element.name + ' Logo'" [alt]="element.name + ' Logo'"
+                            [src]="expandedChannelDetails.base64Logo">
                         <span>
-                            {{ expandedChannelDetails.description }} 
+                            {{ expandedChannelDetails.description }}
                             <a *ngIf="lang == 'en' && expandedChannelDetails.englishUrl || lang == 'es' && expandedChannelDetails.spanishUrl"
-                                [href]="lang == 'en' ? expandedChannelDetails.englishUrl : expandedChannelDetails.spanishUrl" target="_blank">
+                                [href]="lang == 'en' ? expandedChannelDetails.englishUrl : expandedChannelDetails.spanishUrl"
+                                target="_blank">
                                 {{ strings.seeMore }}
                             </a>
                         </span>
@@ -55,12 +77,27 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="channelTableColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: channelTableColumns;"
-                class="channel-row"
-                [class.channel-expanded-row]="expandedChannel === row"
-                (click)="showChannelDetails(row)"></tr>
+            <tr mat-row *matRowDef="let row; columns: channelTableColumns;" class="channel-row"
+                [class.channel-expanded-row]="expandedChannel === row"></tr>
             <tr mat-row *matRowDef="let row; columns: ['expanded']" class="channel-detail-row"></tr>
         </table>
         <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
     </div>
 </div>
+
+<ng-template #removeConfirmation>
+    <h1 mat-dialog-title>Atencion</h1>
+    <div mat-dialog-content>
+        <p *ngIf="selectedChannels.length == 1">{{ strings.confirmMessageSimple }}</p>
+        <div *ngIf="selectedChannels.length > 1">
+            <p>{{ strings.confirmMessageMultiple }}</p>
+            <ul class="channel-to-remove">
+                <li *ngFor="let channel of selectedChannels">{{ channel.name }}</li>
+            </ul>
+        </div>
+    </div>
+    <div mat-dialog-actions class="confirm-buttons">
+      <button mat-raised-button class="mat-warn" (click)="confirmRemove()">{{ strings.yes }}</button>
+      <button mat-button (click)="closePopup()">No</button>
+    </div>
+</ng-template>

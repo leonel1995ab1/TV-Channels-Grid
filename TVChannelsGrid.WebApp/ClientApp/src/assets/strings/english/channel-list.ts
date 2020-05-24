@@ -3,7 +3,7 @@ import { IChannelList } from '../interfaces/channel-list.interface';
 export const EN_CH_LIST: IChannelList = {
     add: 'Add Channel',
     edit: 'Edit Channel',
-    remove: 'Remove Channel',
+    remove: 'Remove Channel(s)',
     search: 'Search by Channel Name',
     example: 'Ex. Telefe',
     pagItems: 'Channels Per Page',
@@ -16,5 +16,9 @@ export const EN_CH_LIST: IChannelList = {
     tableHeader3: 'Resolutions',
     tableHeader4: 'Category',
     seeMore: 'See More',
-    addChannel: 'Add Channel'
+    warning: 'Warning',
+    confirmMessageSimple: 'The channel will be deleted permanently. Do you want to continue?',
+    confirmMessageMultiple: 'The following channels will be deleted permanently. Do you want to continue?',
+    yes: 'Yes',
+    deleteComplete: 'Remove Successfull'
 }

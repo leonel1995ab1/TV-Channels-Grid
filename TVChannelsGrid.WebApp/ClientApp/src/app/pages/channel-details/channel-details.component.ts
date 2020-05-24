@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from 'src/services/category.service';
 import { CategoryData } from 'src/models/data/category.data';
 import { Resolutions } from 'src/enums/resolutions.enum';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChannelService } from 'src/services/channel.service';
 import { ChannelData } from 'src/models/data/channel.data';
 import { Subject } from 'rxjs';
@@ -39,9 +39,9 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
       desc: '3D'
     }
   ];
-  channelCode: string;
+  channelId: number;
   channel: ChannelData;
-  unsubscribe = new Subject<any>();
+  private unsubscribe = new Subject<any>();
   strings: IChannelDetails;
   lang: string;
   channelForm: FormGroup;
@@ -54,21 +54,19 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private channelService: ChannelService,
     private language: LanguageService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { 
     this.categories = this.categoryService.categories;
-    let code = this.route.snapshot.paramMap.get('code');
-    if(code) {
-      this.channelCode = code.toUpperCase();
-    }
+    this.channelId = +this.route.snapshot.paramMap.get('id');
 
     this.evaluateLanguage(this.language.selectedLanguage);
     this.generateFormGroup();
   }
 
   ngOnInit(): void {
-    if(this.channelCode) {
-      this.channelService.getByCode(this.channelCode)
+    if(this.channelId) {
+      this.channelService.getById(this.channelId)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(resp => this.setChannelValues(resp));
     }
@@ -126,17 +124,18 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
 
     let channelToSave: ChannelData = this.mapChannelToSave();
 
-    if(this.channelCode) {
+    if(this.channelId) {
       this.channelService.update(channelToSave)
       .pipe(take(1))
       .subscribe(() => {
-        this.showNotification('tst');
+        this.showNotification(this.strings.updateComplete);
       });
     } else {
       this.channelService.create(channelToSave)
       .pipe(take(1))
-      .subscribe(() => {
-        this.showNotification('tst');
+      .subscribe((newId: number) => {
+        this.router.navigate([`channel/${newId}`]);
+        this.showNotification(this.strings.createComplete);
       });
     }
   }
@@ -163,6 +162,7 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
     });
 
     return {
+      id: this.channelId,
       code: this.channelForm.controls.code.value.toUpperCase(),
       name: this.channelForm.controls.name.value,
       description: this.channelForm.controls.desc.value,

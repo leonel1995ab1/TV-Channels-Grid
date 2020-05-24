@@ -1,11 +1,11 @@
-import { Component, Input, Output, DoCheck, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, Output, DoCheck, EventEmitter, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { IImageUpload } from 'src/assets/strings/interfaces/image-upload.interface';
 import { LanguageService } from 'src/services/language.service';
 import { SP_IMAGE_UPLOAD } from 'src/assets/strings/spanish/image-upload';
 import { EN_IMAGE_UPLOAD } from 'src/assets/strings/english/image-upload';
-import { PopupService } from 'src/services/popup.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-image-upload',
@@ -14,6 +14,9 @@ import { Subject } from 'rxjs';
 })
 
 export class ImageUploadComponent implements DoCheck, OnDestroy {
+  @ViewChild('multipleFilesValidation') multipleFilesValidation: TemplateRef<any>;
+  @ViewChild('invalidFormatValidation') invalidFormatValidation: TemplateRef<any>;
+
   strings: IImageUpload;
   lang: string;
   unsubscribe = new Subject<any>();
@@ -33,7 +36,7 @@ export class ImageUploadComponent implements DoCheck, OnDestroy {
 
   constructor(
     private language: LanguageService,
-    private popup: PopupService
+    private dialog: MatDialog
   ) {
     this.evaluateLanguage(this.language.selectedLanguage);
 
@@ -80,21 +83,13 @@ export class ImageUploadComponent implements DoCheck, OnDestroy {
   handleInputChange(e: any) {
       let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
       if(files.length > 1) {
-        this.popup.show({
-          title: 'Error',
-          content: this.strings.multipleFilesValidation,
-          buttons: []
-        });
+        this.dialog.open(this.multipleFilesValidation);
         return;
       }
 
       let file = files[0];
       if (!file.type.match('image/png')) {
-        this.popup.show({
-          title: 'Error',
-          content: this.strings.invalidFormatValidation,
-          buttons: []
-        });
+        this.dialog.open(this.invalidFormatValidation);
         return;
       }
 

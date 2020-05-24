@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 //Aplication components nd services
 import { AppComponent } from './app.component';
@@ -23,7 +24,6 @@ import { ChannelListComponent } from './pages/channel-list/channel-list.componen
 import { ChannelDetailsComponent } from './pages/channel-details/channel-details.component';
 import { ComingSoonComponent } from './components/coming-soon/coming-soon.component';
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
-import { PopupComponent } from './components/popup/popup.component';
 import { CategoryService } from 'src/services/category.service';
 import { InterceptorService } from 'src/services/interceptor.service';
 
@@ -34,8 +34,7 @@ import { InterceptorService } from 'src/services/interceptor.service';
     ChannelListComponent,
     ChannelDetailsComponent,
     ComingSoonComponent,
-    ImageUploadComponent,
-    PopupComponent
+    ImageUploadComponent
   ],
   imports: [
     //Angular modules
@@ -53,7 +52,8 @@ import { InterceptorService } from 'src/services/interceptor.service';
     MatInputModule,
     MatSortModule,
     MatPaginatorModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCheckboxModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

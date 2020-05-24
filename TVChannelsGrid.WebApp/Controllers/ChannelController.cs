@@ -20,12 +20,12 @@ namespace TVChannelsGrid.WebApp.Controllers
         public List<ChannelData> GetAll() => Service.GetAll();
 
         [HttpGet("[action]")]
-        public ChannelData GetByCode(string code) => Service.GetByCode(code);
+        public ChannelData GetById(int id) => Service.GetById(id);
 
         [HttpPost("[action]")]
-        public Task<int> Create(ChannelData channel) => Service.CreateAsync(channel);
+        public Task<int> Create(ChannelData channel) => Service.Create(channel);
 
         [HttpPost("[action]")]
-        public Task<int> Update(ChannelData channel) => Service.UpdateAsync(channel);
+        public Task<int> Update(ChannelData channel) => Service.Update(channel);
     }
 }

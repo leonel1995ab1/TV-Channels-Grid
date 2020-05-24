@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, TemplateRef } from '@angular/core';
 import { ChannelService } from 'src/services/channel.service';
 import { ChannelData } from 'src/models/data/channel.data';
 import { trigger, state, style, transition, animate } from '@angular/animations';
@@ -13,6 +13,10 @@ import { SP_CH_LIST } from 'src/assets/strings/spanish/channel-list';
 import { IChannelList } from 'src/assets/strings/interfaces/channel-list.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { ChannelSelected } from 'src/models/interfaces/channel-selected.interface';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-channel-list',
@@ -33,17 +37,22 @@ export class ChannelListComponent implements OnInit, OnDestroy {
   channelTableColumns: string[];
   expandedChannel: ChannelData;
   expandedChannelDetails: ExpandedChannel = new ExpandedChannel();
-  unsubscribe = new Subject<any>();
+  private unsubscribe = new Subject<any>();
+  selectedChannels: ChannelSelected[] = [];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild('removeConfirmation') removeConfirmation: TemplateRef<any>;
 
   constructor(
     private channelService: ChannelService,
     private _sanitizer: DomSanitizer,
-    private language: LanguageService
+    private language: LanguageService,
+    private router: Router,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) {
-    this.channelTableColumns = ['code', 'name', 'resolution', 'categoryName'];
+    this.channelTableColumns = ['checkbox', 'code', 'name', 'resolution', 'categoryName'];
     this.evaluateLanguage(this.language.selectedLanguage);
   }
 
@@ -55,11 +64,7 @@ export class ChannelListComponent implements OnInit, OnDestroy {
     this.channelList.sort = this.sort;
     this.updatePaginatorLabels();
 
-    this.channelService.getAll()
-    .pipe(takeUntil(this.unsubscribe))
-    .subscribe((response: ChannelData[]) => {
-      this.channelList.data = response;
-    });
+    this.getAll();
 
     this.language.applyLanguage$
     .pipe(takeUntil(this.unsubscribe))
@@ -72,6 +77,14 @@ export class ChannelListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
+  }
+
+  private getAll() {
+    this.channelService.getAll()
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe((response: ChannelData[]) => {
+      this.channelList.data = response;
+    });
   }
 
   private evaluateLanguage(lang: string) {
@@ -106,7 +119,7 @@ export class ChannelListComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.channelService.getByCode(channel.code).subscribe((response: ChannelData) => {
+    this.channelService.getById(channel.id).subscribe((response: ChannelData) => {
       this.expandedChannelDetails = {
         description: response.description,
         base64Logo: this._sanitizer.bypassSecurityTrustResourceUrl('data:image/png;base64,' + response.base64Logo),
@@ -114,6 +127,44 @@ export class ChannelListComponent implements OnInit, OnDestroy {
         spanishUrl: response.spanishUrl
       };
     });
+  }
+
+  selectionChange(channel: ChannelData, e: {checked: boolean}) {
+    if(e.checked) {
+      this.selectedChannels.push({
+        id: channel.id,
+        name: channel.name
+      });
+    } else {
+      this.selectedChannels = this.selectedChannels.filter(ch => ch.id != channel.id);
+    }
+  }
+
+  edit() {
+    this.router.navigate([`channel/${this.selectedChannels[0].id}`]);
+  }
+
+  remove() {
+    this.dialog.open(this.removeConfirmation);
+  }
+
+  confirmRemove() {
+    this.channelService.delete(this.selectedChannels)
+    .pipe(takeUntil(this.unsubscribe))
+    .subscribe(() => {
+      this.selectedChannels = [];
+      this.getAll();
+      this.snackBar.open(this.strings.deleteComplete, null, {
+        duration: 3000,
+        horizontalPosition: 'end',
+        verticalPosition: 'top',
+      });
+    });
+    this.closePopup();
+  }
+
+  closePopup() {
+    this.dialog.closeAll();
   }
 
 }

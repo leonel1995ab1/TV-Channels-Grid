@@ -14,5 +14,9 @@ export interface IChannelList {
     tableHeader3: string,
     tableHeader4: string,
     seeMore: string,
-    addChannel: string
+    warning: string,
+    confirmMessageSimple: string,
+    confirmMessageMultiple: string,
+    yes: string,
+    deleteComplete: string
 }

@@ -13,3 +13,11 @@
 </div>
 
 <input id="uploadedInput" type="file" name="file" accept="image/x-png" (change)="handleInputChange($event)">
+
+<ng-template #multipleFilesValidation>
+    {{ strings.multipleFilesValidation }}   
+</ng-template>
+
+<ng-template #invalidFormatValidation>
+    {{ strings.invalidFormatValidation }}
+</ng-template>

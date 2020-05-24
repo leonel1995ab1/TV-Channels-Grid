@@ -12,5 +12,7 @@ export const SP_CH_DETAILS: IChannelDetails = {
     add: 'Nuevo Canal',
     edit: 'Modificando Canal: ',
     errorFields: 'Se debe completar los campos restantes antes de guardar',
-    errorLogo: 'Se debe añadir un logo antes de continuar'
+    errorLogo: 'Se debe añadir un logo antes de continuar',
+    createComplete: 'Se ha creado el canal',
+    updateComplete: 'Se ha actualizado el canal'
 }

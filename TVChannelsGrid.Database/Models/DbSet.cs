@@ -69,6 +69,8 @@ namespace TVChannelsGrid.Database.Models
 
             modelBuilder.Entity<Channels>(entity =>
             {
+                entity.Property(e => e.Id).HasColumnName("id");
+
                 entity.Property(e => e.Code)
                     .IsRequired()
                     .HasColumnName("code")

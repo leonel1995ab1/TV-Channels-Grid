@@ -26,7 +26,7 @@ namespace TVChannelsGrid.ServerApp.Services
            return dbChannels.Select(c => c.channel.MapToChannelData(c.category)).ToList();
         }
 
-        public ChannelData GetByCode (string code)
+        public ChannelData GetById (int id)
         {
             var ch = db.Channels
                 .Join(
@@ -35,19 +35,20 @@ namespace TVChannelsGrid.ServerApp.Services
                     category => category.Id,
                     (channel, category) => new { channel, category }
                 )
-                .First(c => c.channel.Code == code);
+                .First(c => c.channel.Id == id);
 
             return ch.channel.MapToChannelDetailsData(ch.category);
         }
 
-        public async Task<int> CreateAsync (ChannelData channel)
+        public async Task<int> Create (ChannelData channel)
         {
-            db.Channels.Add(channel.MapChannelToUpdate());
-            return await db.SaveChangesAsync();
+            var newCh = db.Channels.Add(channel.MapChannelToUpdate()).Entity;
+            await db.SaveChangesAsync();
+            return newCh.Id;
         }
 
-        public async Task<int> UpdateAsync(ChannelData channel)
-        { 
+        public async Task<int> Update (ChannelData channel)
+        {
             db.Channels.Update(channel.MapChannelToUpdate());
             return await db.SaveChangesAsync();
         }
