@@ -67,7 +67,7 @@
             <div class="row save-button">
                 <div class="error" *ngIf="showFieldError && !channelForm.valid">
                     <span class="material-icons icon-image-preview">error_outline</span>
-                    <span>{{ strings.errorLogo }}</span>
+                    <span>{{ strings.errorFields }}</span>
                 </div>
                 <button mat-raised-button class="mat-primary" (click)="save()">{{ strings.save }}</button>
             </div>
