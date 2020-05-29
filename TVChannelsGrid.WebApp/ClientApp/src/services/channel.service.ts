@@ -14,22 +14,22 @@ export class ChannelService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<ChannelData[]> {
-    return this.http.get<ChannelData[]>(`${BASE_URL}getAll`);
+    return this.http.get<ChannelData[]>(`${BASE_URL}getAll`, {reportProgress: true});
   }
 
   getById(id: number): Observable<ChannelData> {
-    return this.http.get<ChannelData>(`${BASE_URL}getById?id=` + id);
+    return this.http.get<ChannelData>(`${BASE_URL}getById?id=` + id, { reportProgress: false });
   }
 
   create(channel: ChannelData): Observable<number> {
-    return this.http.post<number>(`${BASE_URL}create`, channel);
+    return this.http.post<number>(`${BASE_URL}create`, channel, {reportProgress: true});
   }
 
   update(channel: ChannelData): Observable<number> {
-    return this.http.post<number>(`${BASE_URL}update`, channel);
+    return this.http.post<number>(`${BASE_URL}update`, channel, {reportProgress: true});
   }
 
   delete(channels: ChannelSelected[]): Observable<number> {
-    return this.http.post<number>(`${BASE_URL}delete`, channels);
+    return this.http.post<number>(`${BASE_URL}delete`, channels, {reportProgress: true});
   }
 }

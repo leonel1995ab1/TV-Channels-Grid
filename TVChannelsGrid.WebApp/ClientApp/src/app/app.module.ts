@@ -16,6 +16,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 //Aplication components nd services
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import { ComingSoonComponent } from './components/coming-soon/coming-soon.compon
 import { ImageUploadComponent } from './components/image-upload/image-upload.component';
 import { CategoryService } from 'src/services/category.service';
 import { InterceptorService } from 'src/services/interceptor.service';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { InterceptorService } from 'src/services/interceptor.service';
     ChannelListComponent,
     ChannelDetailsComponent,
     ComingSoonComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    LoadingComponent
   ],
   imports: [
     //Angular modules
@@ -53,7 +56,8 @@ import { InterceptorService } from 'src/services/interceptor.service';
     MatSortModule,
     MatPaginatorModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

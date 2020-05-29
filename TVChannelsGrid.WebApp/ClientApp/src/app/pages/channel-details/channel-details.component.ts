@@ -114,7 +114,7 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
       esUrl: new FormControl(),
       category: new FormControl(null, Validators.required),
       resolutions: new FormControl(null, Validators.required),
-      discontinued: new FormControl()
+      discontinued: new FormControl(false)
     });
   }
 
