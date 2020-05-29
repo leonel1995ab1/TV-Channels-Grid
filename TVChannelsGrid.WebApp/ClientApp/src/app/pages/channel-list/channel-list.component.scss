@@ -86,10 +86,17 @@
     width: 15%;
   }
 
-  .subheader button {
-    float: right;
-    margin-left: 10px;
-  }
+  .subheader {
+    button {
+      float: right;
+      margin-left: 10px;
+    }
+
+    mat-checkbox {
+      margin-left: 25px;
+      font-size: 14px;
+    }
+  } 
 }
 
 .confirm-buttons {

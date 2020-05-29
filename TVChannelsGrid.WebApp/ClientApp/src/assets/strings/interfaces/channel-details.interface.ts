@@ -13,4 +13,5 @@ export interface IChannelDetails {
     errorFields: string;
     createComplete: string;
     updateComplete: string;
+    discontinued: string;
 }

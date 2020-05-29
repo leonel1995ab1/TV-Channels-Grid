@@ -18,5 +18,8 @@ export interface IChannelList {
     confirmMessageSimple: string,
     confirmMessageMultiple: string,
     yes: string,
-    deleteComplete: string
+    deleteComplete: string;
+    enabled: string;
+    discontinuedCheck: string;
+    discontinuedTable: string;
 }

@@ -11,6 +11,12 @@
     .title {
         margin-bottom: 15px;
         color: #6c757d;
+
+        button {
+            right: 0;
+            position: absolute;
+            margin-top: 7.5px;
+        }
     }
 
     .save-button {

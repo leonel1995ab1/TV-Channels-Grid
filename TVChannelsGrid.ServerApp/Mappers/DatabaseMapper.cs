@@ -19,7 +19,8 @@ namespace TVChannelsGrid.ServerApp.Mappers
                 IsSD = channel.IsSD,
                 Logo = channel.Logo,
                 Name = channel.Name,
-                SpanishUrl = channel.SpanishUrl
+                SpanishUrl = channel.SpanishUrl,
+                Discontinued = channel.Discontinued
             };
         }
 
@@ -38,7 +39,8 @@ namespace TVChannelsGrid.ServerApp.Mappers
                 IsSD = channel.IsSD,
                 Logo = channel.Logo,
                 Name = channel.Name,
-                SpanishUrl = channel.SpanishUrl
+                SpanishUrl = channel.SpanishUrl,
+                Discontinued = channel.Discontinued
             };
         }
     }

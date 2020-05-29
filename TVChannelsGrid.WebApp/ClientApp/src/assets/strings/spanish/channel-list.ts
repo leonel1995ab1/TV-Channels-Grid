@@ -20,5 +20,8 @@ export const SP_CH_LIST: IChannelList = {
     confirmMessageSimple: 'El Canal sera borra permanentemente y no podra ser recuperado. Desea continuar?',
     confirmMessageMultiple: 'Los siguientes canales seran borrados permanentemente y no podran ser recuperados. Desea continuar?',
     yes: 'Si',
-    deleteComplete: 'Borrado Completo'
+    deleteComplete: 'Borrado Completo',
+    enabled: 'Habilitados',
+    discontinuedCheck: 'Discontinuados',
+    discontinuedTable: ' (Discontinuado)'
 }

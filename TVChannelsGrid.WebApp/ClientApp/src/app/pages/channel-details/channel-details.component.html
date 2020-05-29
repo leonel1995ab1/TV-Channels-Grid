@@ -1,7 +1,12 @@
 <div id="channelDetails" class="row">
     <div class="row col-md-12 title">
         <h4 *ngIf="!channelId">{{ strings.add }}</h4>
-        <h4 *ngIf="channelId">{{ strings.edit + channel?.name }}</h4>
+        <ng-container *ngIf="channelId">
+            <h4 class="col-md-6">{{ strings.edit + channel?.name }}</h4>
+            <div class="col-md-6 ">
+                <button mat-raised-button class="mat-primary" [routerLink]="['/channel/new']">{{ strings.add }}</button>
+            </div>
+        </ng-container>
     </div>
     <div class="row col-md-12">
         <div class="col-md-3">
@@ -63,7 +68,10 @@
                 </mat-form-field>
             </div>
 
-            <!--Save Button-->
+            <!-- Discontinued -->
+            <mat-checkbox formControlName="discontinued">{{ strings.discontinued }}</mat-checkbox>
+            
+            <!-- Save Button -->
             <div class="row save-button">
                 <div class="error" *ngIf="showFieldError && !channelForm.valid">
                     <span class="material-icons icon-image-preview">error_outline</span>

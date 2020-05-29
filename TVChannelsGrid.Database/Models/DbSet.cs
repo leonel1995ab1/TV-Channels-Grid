@@ -99,6 +99,8 @@ namespace TVChannelsGrid.Database.Models
                 entity.Property(e => e.Is4K).HasColumnName("is4k");
 
                 entity.Property(e => e.Is3D).HasColumnName("is3d");
+
+                entity.Property(e => e.Discontinued).HasColumnName("discontinued");
             });
 
             modelBuilder.Entity<Grids>(entity =>

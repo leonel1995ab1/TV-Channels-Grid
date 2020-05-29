@@ -20,5 +20,6 @@ namespace TVChannelsGrid.Database.Models
         public bool IsHD { get; set; }
         public bool Is4K { get; set; }
         public bool Is3D { get; set; }
+        public bool Discontinued { get; set; }
     }
 }

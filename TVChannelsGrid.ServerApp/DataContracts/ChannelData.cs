@@ -47,5 +47,8 @@ namespace TVChannelsGrid.ServerApp.DataContracts
         [DataMember(Name = "is3D")]
         public bool Is3D { get; set; }
 
+        [DataMember(Name = "discontinued")]
+        public bool Discontinued { get; set; }
+
     }
 }

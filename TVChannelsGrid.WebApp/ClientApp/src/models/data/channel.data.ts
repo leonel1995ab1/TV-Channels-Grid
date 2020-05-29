@@ -13,4 +13,5 @@ export interface ChannelData {
     isHD: boolean;
     is4K: boolean;
     is3D: boolean;
+    discontinued: boolean;
 }

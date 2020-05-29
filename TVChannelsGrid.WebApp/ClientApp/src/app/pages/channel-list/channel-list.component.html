@@ -4,6 +4,8 @@
             <mat-label>{{ strings.search }}</mat-label>
             <input matInput (keyup)="applyFilter($event)" [placeholder]="strings.example">
         </mat-form-field>
+        <mat-checkbox [(ngModel)]="enabled" (change)="onFilterChange()">{{ strings.enabled }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="discontinue" (change)="onFilterChange()">{{ strings.discontinuedCheck }}</mat-checkbox>
         <button mat-raised-button class="mat-primary" [routerLink]="['/channel/new']">{{ strings.add }}</button>
         <button mat-stroked-button class="mat-warn" *ngIf="selectedChannels.length"
             (click)="remove()">{{ strings.remove }}</button>
@@ -36,12 +38,12 @@
                 <th class="name-column" mat-header-cell *matHeaderCellDef mat-sort-header> {{ strings.tableHeader1 }}
                 </th>
                 <td mat-cell class="clickeable" *matCellDef="let element" (click)="showChannelDetails(element)">
-                    {{ element.name }} </td>
+                    {{ element.name }} {{ element.discontinued ? strings.discontinuedTable : '' }} </td>
             </ng-container>
 
             <!-- Channel Resolution Column -->
             <ng-container matColumnDef="resolution">
-                <th class="resolution-column" mat-header-cell *matHeaderCellDef mat-sort-header>
+                <th class="resolution-column" mat-header-cell *matHeaderCellDef>
                     {{ strings.tableHeader3 }} </th>
                 <td mat-cell class="clickeable" *matCellDef="let element" (click)="showChannelDetails(element)">
                     <div *ngIf="element.isSD" class="resolution-cell"> SD </div>
@@ -52,7 +54,7 @@
             </ng-container>
 
             <!-- Channel Category Column -->
-            <ng-container matColumnDef="categoryName">
+            <ng-container [matColumnDef]="categoryColumnName">
                 <th class="category-column" mat-header-cell *matHeaderCellDef mat-sort-header>
                     {{ strings.tableHeader4 }} </th>
                 <td mat-cell class="clickeable" *matCellDef="let element" (click)="showChannelDetails(element)">

@@ -34,11 +34,15 @@ export class ChannelListComponent implements OnInit, OnDestroy {
   strings: IChannelList;
   lang: string;
   channelList = new MatTableDataSource();
+  channelsResponse: ChannelData[];
   channelTableColumns: string[];
   expandedChannel: ChannelData;
   expandedChannelDetails: ExpandedChannel = new ExpandedChannel();
   private unsubscribe = new Subject<any>();
   selectedChannels: ChannelSelected[] = [];
+  enabled = true;
+  discontinue = true;
+  categoryColumnName: string;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -84,12 +88,20 @@ export class ChannelListComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.unsubscribe))
     .subscribe((response: ChannelData[]) => {
       this.channelList.data = response;
+      this.channelsResponse = response;
     });
   }
 
   private evaluateLanguage(lang: string) {
     this.lang = lang;
-    this.strings = lang == 'en' ? EN_CH_LIST : SP_CH_LIST;
+    if(lang == 'en') {
+      this.strings = EN_CH_LIST;
+      this.categoryColumnName = 'englishCategoryDesc';
+    } else {
+      this.strings = SP_CH_LIST;
+      this.categoryColumnName = 'spanishCategoryDesc';
+    }
+    this.channelTableColumns[4] = this.categoryColumnName;
   }
 
   private updatePaginatorLabels() {
@@ -165,6 +177,22 @@ export class ChannelListComponent implements OnInit, OnDestroy {
 
   closePopup() {
     this.dialog.closeAll();
+  }
+
+  onFilterChange() {
+    if(this.discontinue && this.enabled) {
+      this.channelList.data = this.channelsResponse;
+      return;
+    }
+    if(!this.discontinue && !this.enabled) {
+      this.channelList.data = [];
+      return
+    }
+    if(this.discontinue) {
+      this.channelList.data = this.channelsResponse.filter(c => c.discontinued);
+    } else {
+      this.channelList.data = this.channelsResponse.filter(c => !c.discontinued);
+    }
   }
 
 }

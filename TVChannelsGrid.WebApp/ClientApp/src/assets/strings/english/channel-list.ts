@@ -20,5 +20,8 @@ export const EN_CH_LIST: IChannelList = {
     confirmMessageSimple: 'The channel will be deleted permanently. Do you want to continue?',
     confirmMessageMultiple: 'The following channels will be deleted permanently. Do you want to continue?',
     yes: 'Yes',
-    deleteComplete: 'Remove Successfull'
+    deleteComplete: 'Remove Successfull',
+    enabled: 'Enabled',
+    discontinuedCheck: 'Discontinued',
+    discontinuedTable: ' (Discontinued)'
 }

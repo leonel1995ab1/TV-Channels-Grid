@@ -18,7 +18,8 @@ namespace TVChannelsGrid.ServerApp.Mappers
                 IsSD = channel.IsSD,
                 IsHD = channel.IsHD,
                 Is4K = channel.Is4K,
-                Is3D = channel.Is3D
+                Is3D = channel.Is3D,
+                Discontinued = channel.Discontinued
             };
         }
 
@@ -39,7 +40,8 @@ namespace TVChannelsGrid.ServerApp.Mappers
                 IsSD = channel.IsSD,
                 IsHD = channel.IsHD,
                 Is4K = channel.Is4K,
-                Is3D = channel.Is3D
+                Is3D = channel.Is3D,
+                Discontinued = channel.Discontinued
             };
         }
     }

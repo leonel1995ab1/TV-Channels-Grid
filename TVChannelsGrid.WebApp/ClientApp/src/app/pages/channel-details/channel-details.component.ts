@@ -90,6 +90,7 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
     this.channelForm.controls.esUrl.setValue(channel.spanishUrl);
     this.channelForm.controls.enUrl.setValue(channel.englishUrl);
     this.channelForm.controls.category.setValue(channel.categoryId);
+    this.channelForm.controls.discontinued.setValue(channel.discontinued);
 
     let resolutions: number[] = [];
     if(channel.isSD) resolutions.push(Resolutions.SD);
@@ -112,7 +113,8 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
       enUrl: new FormControl(),
       esUrl: new FormControl(),
       category: new FormControl(null, Validators.required),
-      resolutions: new FormControl(null, Validators.required)
+      resolutions: new FormControl(null, Validators.required),
+      discontinued: new FormControl()
     });
   }
 
@@ -173,7 +175,8 @@ export class ChannelDetailsComponent implements OnInit, OnDestroy {
       isSD: isSD,
       isHD: isHD,
       is3D: is3D,
-      is4K: is4K
+      is4K: is4K,
+      discontinued: this.channelForm.controls.discontinued.value
     }
   }
 
