@@ -24,7 +24,13 @@ export class HeaderComponent {
     private router: Router
   ) { 
     this.strings = this.language.selectedLanguage == 'en' ? EN_HEADER : SP_HEADER;
-    this.menuSelected = 1;
+    
+    let path = window.location.pathname;
+    if(path.includes('grid')) {
+      this.menuSelected = 2;
+    } else {
+      this.menuSelected = 1;
+    }
   }
 
   languageChange(e: MatSelectChange) {
@@ -33,10 +39,13 @@ export class HeaderComponent {
   }
 
   changeMenuSelected(menu: number) {
-    //this.menuSelected = menu;
+    this.menuSelected = menu;
     switch(menu) {
       case 1:
         this.router.navigate(['/channels']);
+        break;
+      case 2:
+        this.router.navigate(['/grids']);
         break;
       default:
         this.dialog.open(ComingSoonComponent);

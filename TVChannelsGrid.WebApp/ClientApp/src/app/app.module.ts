@@ -28,6 +28,8 @@ import { ImageUploadComponent } from './components/image-upload/image-upload.com
 import { CategoryService } from 'src/services/category.service';
 import { InterceptorService } from 'src/services/interceptor.service';
 import { LoadingComponent } from './components/loading/loading.component';
+import { ChannelsGridComponent } from './pages/channels-grid/channels-grid.component';
+import { GridListComponent } from './pages/grid-list/grid-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { LoadingComponent } from './components/loading/loading.component';
     ChannelDetailsComponent,
     ComingSoonComponent,
     ImageUploadComponent,
-    LoadingComponent
+    LoadingComponent,
+    ChannelsGridComponent,
+    GridListComponent
   ],
   imports: [
     //Angular modules
